@@ -82,24 +82,49 @@ public class Linguagem {
     public void removeTransicao(Transicao t) {
         listaTransicao.remove(t);
     }
-    
-    public ArrayList<Transicao> getTransIni(Simbolo s){
+
+    public ArrayList<Transicao> getListTransIni(Simbolo s) {
         ArrayList<Transicao> listTrans = new ArrayList<>();
-        for(Transicao t : listaTransicao){
-            if(t.getOrigem().equals(s)){
+        for (Transicao t : listaTransicao) {
+            if (t.getOrigem().equals(s)) {
                 listTrans.add(t);
             }
         }
         return listTrans;
     }
-    public void removeEps(Linguagem l, int i){
-        Transicao t = l.getListaTransicao().get(i);
-        Transicao tn = new Transicao();
-        ArrayList<Transicao> origem = l.getListaTransicao();
-        if(t.getListaDestino() == null){
-            origem=getTransIni(t.getOrigem());
-            
+
+    public void removeEps() {
+        Simbolo simbOri;
+        for (Transicao t : listaTransicao) {
+            if (t.getListaDestino() == null) {
+                simbOri = t.getOrigem();
+                listaTransicao.remove(t);
+                modificaEps(simbOri, t);
+            }
         }
     }
- 
+
+    public void modificaEps(Simbolo simb, Transicao trans) {
+        Transicao novaTrans;
+
+        for (Transicao t : listaTransicao) {
+            for (Simbolo s : t.getListaDestino()) {
+                if (s.equals(simb)) {
+                    novaTrans = new Transicao();
+                    novaTrans.setOrigem(t.getOrigem());
+                    copiaDest(t, novaTrans);
+                    novaTrans.getListaDestino().remove(s);
+                    modificaEps(simb, novaTrans);
+                }
+
+            }
+        }
+
+    }
+
+    public void copiaDest(Transicao t1, Transicao t2) {
+        for (Simbolo s : t1.getListaDestino()) {
+            t2.getListaDestino().add(s);
+        }
+    }
 }
