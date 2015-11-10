@@ -15,6 +15,10 @@ public class Transicao {
     Simbolo origem;
     ArrayList<Simbolo> listaDestino;
 
+    public Transicao() {
+        listaDestino = new ArrayList<>();
+    }
+
     public Simbolo getOrigem() {
         return origem;
     }

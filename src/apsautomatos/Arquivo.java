@@ -12,19 +12,12 @@ public class Arquivo {
         String auxiliar[];
         ArrayList<Simbolo> listaDest = null;
         try {
-            FileReader file = new FileReader(arquivo + ".txt");
+            FileReader file = new FileReader("src/arquivos/"+arquivo + ".txt");
             BufferedReader fi = new BufferedReader(file);
             String linha = fi.readLine();
-            System.out.println("Linha: "+linha);
             linha = fi.readLine();
-            System.out.println("Linha: "+linha);
             auxiliar = linha.split(" ");
-            for (int i = 0; i <auxiliar.length; i++) {
-                System.out.println("teste: "+auxiliar[i]);
-                
-            }
             for (String a : auxiliar) {
-                System.out.println(a);
                 lingua.criaSimbolo(a);
             }
             linha = fi.readLine();

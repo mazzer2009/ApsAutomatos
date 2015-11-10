@@ -6,12 +6,18 @@
 package apsautomatos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Linguagem {
 
     private Simbolo inicial;
     private ArrayList<Transicao> listaTransicao;
     private ArrayList<Simbolo> listaSimbolo;
+
+    public Linguagem() {
+        listaSimbolo = new ArrayList<>();
+        listaTransicao = new ArrayList<>();
+    }
 
     public Simbolo getInicial() {
         return inicial;
@@ -62,8 +68,6 @@ public class Linguagem {
     }
 
     public void addSimbolo(Simbolo simb) {
-        System.out.println(simb.getNome());
-        
         listaSimbolo.add(simb);
     }
 
@@ -78,5 +82,24 @@ public class Linguagem {
     public void removeTransicao(Transicao t) {
         listaTransicao.remove(t);
     }
-
+    
+    public ArrayList<Transicao> getTransIni(Simbolo s){
+        ArrayList<Transicao> listTrans = new ArrayList<>();
+        for(Transicao t : listaTransicao){
+            if(t.getOrigem().equals(s)){
+                listTrans.add(t);
+            }
+        }
+        return listTrans;
+    }
+    public void removeEps(Linguagem l, int i){
+        Transicao t = l.getListaTransicao().get(i);
+        Transicao tn = new Transicao();
+        ArrayList<Transicao> origem = l.getListaTransicao();
+        if(t.getListaDestino() == null){
+            origem=getTransIni(t.getOrigem());
+            
+        }
+    }
+ 
 }
