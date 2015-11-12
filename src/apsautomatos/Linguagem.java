@@ -83,8 +83,11 @@ public class Linguagem {
         for (Transicao outra : t) {
             if (outra.getListaDestino().size() == 1) {
                 nova.add(outra);
-            }
+            }    
         }
+        
+        //verificar se todos os simbulos de 'nova' sao terminais
+        
         for (Transicao t1 : t) {
             for (int i = 0; i < t1.getListaDestino().size(); i++) {
                 for (Transicao nova1 : nova) {
