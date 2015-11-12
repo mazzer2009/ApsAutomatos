@@ -10,18 +10,18 @@ public class Arquivo {
 
     public void lerArquivo(String arquivo, Linguagem lingua) {
         String auxiliar[];
-        ArrayList<Simbolo> listaDest = null;
+        ArrayList<Simbolo> listaDest = new ArrayList<>();
         try {
             FileReader file = new FileReader(arquivo + ".txt");
             BufferedReader fi = new BufferedReader(file);
             String linha = fi.readLine();
-            System.out.println("Linha: "+linha);
+            System.out.println("Linha: " + linha);
             linha = fi.readLine();
-            System.out.println("Linha: "+linha);
+            System.out.println("Linha: " + linha);
             auxiliar = linha.split(" ");
-            for (int i = 0; i <auxiliar.length; i++) {
-                System.out.println("teste: "+auxiliar[i]);
-                
+            for (int i = 0; i < auxiliar.length; i++) {
+                System.out.println("teste: " + auxiliar[i]);
+
             }
             for (String a : auxiliar) {
                 System.out.println(a);
@@ -53,7 +53,7 @@ public class Arquivo {
 
             }
         } catch (Exception ex) {
-                ex.printStackTrace();
+            ex.printStackTrace();
         }
 
     }

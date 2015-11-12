@@ -89,8 +89,9 @@ public class Linguagem {
         for (Transicao t1 : t) {
             for (int i = 0; i < t1.getListaDestino().size(); i++) {
                 for (Transicao nova1 : nova) {
-                    if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem())) {
+                    if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem().getNome())) {
                         t1.getListaDestino().get(i).setNome(nova1.getListaDestino().get(0).getNome());
+
                     }
                 }
             }
