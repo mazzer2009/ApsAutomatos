@@ -63,7 +63,7 @@ public class Linguagem {
 
     public void addSimbolo(Simbolo simb) {
         System.out.println(simb.getNome());
-        
+
         listaSimbolo.add(simb);
     }
 
@@ -77,6 +77,25 @@ public class Linguagem {
 
     public void removeTransicao(Transicao t) {
         listaTransicao.remove(t);
+    }
+
+    public ArrayList<Transicao> removeUnitario(ArrayList<Transicao> t) {
+        ArrayList<Transicao> nova = new ArrayList<>();
+        for (Transicao outra : t) {
+            if (outra.getListaDestino().size() == 1) {
+                nova.add(outra);
+            }
+        }
+        for (Transicao t1 : t) {
+            for (int i = 0; i < t1.getListaDestino().size(); i++) {
+                for (Transicao nova1 : nova) {
+                    if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem())) {
+                        t1.getListaDestino().get(i).setNome(nova1.getListaDestino().get(0).getNome());
+                    }
+                }
+            }
+        }
+        return t;
     }
 
 }
