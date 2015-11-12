@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author emanuel
  */
 public class Transicao {
+
     Simbolo origem;
     ArrayList<Simbolo> listaDestino;
 
@@ -33,5 +34,13 @@ public class Transicao {
 
     public void setListaDestino(ArrayList<Simbolo> listaDestino) {
         this.listaDestino = listaDestino;
+    }
+
+    public ArrayList<Simbolo> getCopiaDest(Transicao t1) {
+        ArrayList<Simbolo> list = new ArrayList<>();
+        for (Simbolo s : t1.getListaDestino()) {
+            list.add(s);
+        }
+        return list;
     }
 }

@@ -95,36 +95,35 @@ public class Linguagem {
 
     public void removeEps() {
         Simbolo simbOri;
+        ArrayList<Simbolo> listTransEps = new ArrayList<>();
+        int aux, cont, qtdEps,qtdEpsAt;
         for (Transicao t : listaTransicao) {
             if (t.getListaDestino() == null) {
-                simbOri = t.getOrigem();
+                listTransEps.add(t.getOrigem());
                 listaTransicao.remove(t);
-                modificaEps(simbOri, t);
             }
         }
-    }
-
-    public void modificaEps(Simbolo simb, Transicao trans) {
-        Transicao novaTrans;
-
-        for (Transicao t : listaTransicao) {
-            for (Simbolo s : t.getListaDestino()) {
-                if (s.equals(simb)) {
-                    novaTrans = new Transicao();
-                    novaTrans.setOrigem(t.getOrigem());
-                    copiaDest(t, novaTrans);
-                    novaTrans.getListaDestino().remove(s);
-                    modificaEps(simb, novaTrans);
+        qtdEps = listTransEps.size();
+        qtdEpsAt = 0;
+        while (qtdEps != qtdEpsAt) {
+            qtdEpsAt = qtdEps;
+            for (Transicao t : listaTransicao) {
+                cont = 0;
+                aux = t.getListaDestino().size();
+                for (Simbolo s : listTransEps) {
+                    if (t.getListaDestino().contains(s)) {
+                        cont++;
+                    }
                 }
-
+                if ((cont == aux) && (cont > 1)) {
+                    listTransEps.add(t.getOrigem());
+                }
             }
+            qtdEps = listTransEps.size();
+                    
         }
-
+        
+        
     }
 
-    public void copiaDest(Transicao t1, Transicao t2) {
-        for (Simbolo s : t1.getListaDestino()) {
-            t2.getListaDestino().add(s);
-        }
-    }
 }

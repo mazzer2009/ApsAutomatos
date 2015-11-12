@@ -32,18 +32,5 @@ public class ApsAutomatos {
             }
         }
 
-        ArrayList<Transicao> trans2;
-
-        Simbolo simbo = trans.get(2).getOrigem();
-        lingua.modificaEps(simbo, lingua.getListaTransicao().get(2));
-
-        for (Transicao tt : lingua.getListaTransicao()) {
-            System.out.println("\nOrigem: " + tt.getOrigem().getNome() + "  Dest: ");
-            for (Simbolo ss : tt.getListaDestino()) {
-                System.out.println("" + ss.getNome());
-            }
-        }
-        System.out.println("oi");
-
     }
 }
