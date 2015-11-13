@@ -94,6 +94,7 @@ public class Linguagem {
                     if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem().getNome())) {
                         t1.getListaDestino().get(i).setNome(nova1.getListaDestino().get(0).getNome());
                         while(!(t1.getListaDestino().get(i).isTerminal())){
+                            //funcao que retorna a cabeça com certo simbolo
                             
                         }
 
