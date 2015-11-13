@@ -31,6 +31,7 @@ public class ApsAutomatos {
 
             }
         }
-
+        System.out.println(""+lingua.getListaTransicao().get(0).getOrigem().getNome());
+        lingua.removeEps();
     }
 }

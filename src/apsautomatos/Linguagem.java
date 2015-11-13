@@ -95,35 +95,38 @@ public class Linguagem {
 
     public void removeEps() {
         Simbolo simbOri;
-        ArrayList<Simbolo> listTransEps = new ArrayList<>();
+        ArrayList<Simbolo> listSimbEps = new ArrayList<>();
         int aux, cont, qtdEps,qtdEpsAt;
         for (Transicao t : listaTransicao) {
             if (t.getListaDestino() == null) {
-                listTransEps.add(t.getOrigem());
+                listSimbEps.add(t.getOrigem());
                 listaTransicao.remove(t);
             }
         }
-        qtdEps = listTransEps.size();
+        qtdEps = listSimbEps.size();
         qtdEpsAt = 0;
         while (qtdEps != qtdEpsAt) {
             qtdEpsAt = qtdEps;
             for (Transicao t : listaTransicao) {
                 cont = 0;
                 aux = t.getListaDestino().size();
-                for (Simbolo s : listTransEps) {
+                for (Simbolo s : listSimbEps) {
                     if (t.getListaDestino().contains(s)) {
                         cont++;
                     }
                 }
-                if ((cont == aux) && (cont > 1)) {
-                    listTransEps.add(t.getOrigem());
+                if ((cont == aux)) {
+                    listSimbEps.add(t.getOrigem());
                 }
             }
-            qtdEps = listTransEps.size();
+            qtdEps = listSimbEps.size();
                     
         }
         
+        for(Simbolo s : listSimbEps){
         
+            System.out.println("Ini trans com eps: "+s.getNome());
+        }
     }
 
 }
