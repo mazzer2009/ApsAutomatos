@@ -12,8 +12,13 @@ import java.util.ArrayList;
  * @author emanuel
  */
 public class Transicao {
+
     Simbolo origem;
     ArrayList<Simbolo> listaDestino;
+
+    public Transicao() {
+        listaDestino = new ArrayList<>();
+    }
 
     public Simbolo getOrigem() {
         return origem;
@@ -24,10 +29,31 @@ public class Transicao {
     }
 
     public ArrayList<Simbolo> getListaDestino() {
-        return listaDestino;
+        return this.listaDestino;
     }
 
     public void setListaDestino(ArrayList<Simbolo> listaDestino) {
         this.listaDestino = listaDestino;
     }
+
+    public ArrayList<Simbolo> getCopiaDest(Transicao t1) {
+        ArrayList<Simbolo> list = new ArrayList<>();
+        for (Simbolo s : t1.getListaDestino()) {
+            list.add(s);
+        }
+        return list;
+    }
+    
+    public void addListaDestino(Simbolo s){
+        this.listaDestino.add(s);
+    }
+    
+    @Override
+   public boolean equals(Object obj){
+       Transicao t = (Transicao)obj;
+       if((t.getOrigem().getNome().equals(this.getOrigem().getNome()) && (t.getListaDestino().containsAll(this.getListaDestino())))){
+           return true;
+       }
+       return false;
+   }
 }

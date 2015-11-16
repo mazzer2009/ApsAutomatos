@@ -1,9 +1,8 @@
 
 A S B
-S
-A B
+S AB
+S C
+A aA
 A a
 B bB
-B epsilon
-S Ac
-S BaA
+C c

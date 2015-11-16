@@ -15,16 +15,15 @@ public class Arquivo {
             FileReader file = new FileReader(arquivo + ".txt");
             BufferedReader fi = new BufferedReader(file);
             String linha = fi.readLine();
-            System.out.println("Linha: " + linha);
-            linha = fi.readLine();
-            System.out.println("Linha: " + linha);
+         //   linha = fi.readLine();
+
             auxiliar = linha.split(" ");
+
             for (int i = 0; i < auxiliar.length; i++) {
-                System.out.println("teste: " + auxiliar[i]);
 
             }
+
             for (String a : auxiliar) {
-                System.out.println(a);
                 lingua.criaSimbolo(a);
             }
             linha = fi.readLine();
@@ -36,7 +35,7 @@ public class Arquivo {
                 auxiliar = linha.split(" ");
                 transicao.setOrigem(lingua.getSimbolo(auxiliar[0]));
                 if (auxiliar[1].equals("epsilon")) {
-                    transicao.setListaDestino(null);
+                   // transicao.setListaDestino(null);
                 } else {
 
                     auxiliar = auxiliar[1].split("");

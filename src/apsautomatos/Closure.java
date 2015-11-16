@@ -15,6 +15,10 @@ import java.util.ArrayList;
 public class Closure {
     private ArrayList<Simbolo> listaDestino;
 
+    public Closure() {
+        listaDestino = new ArrayList<>();
+    }
+
     public ArrayList<Simbolo> getListaDestino() {
         return listaDestino;
     }

@@ -6,12 +6,18 @@
 package apsautomatos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Linguagem {
 
     private Simbolo inicial;
     private ArrayList<Transicao> listaTransicao;
     private ArrayList<Simbolo> listaSimbolo;
+
+    public Linguagem() {
+        listaSimbolo = new ArrayList<>();
+        listaTransicao = new ArrayList<>();
+    }
 
     public Simbolo getInicial() {
         return inicial;
@@ -62,7 +68,6 @@ public class Linguagem {
     }
 
     public void addSimbolo(Simbolo simb) {
-
         listaSimbolo.add(simb);
     }
 
@@ -78,31 +83,134 @@ public class Linguagem {
         listaTransicao.remove(t);
     }
 
+    public ArrayList<Transicao> getListTransIni(Simbolo s) {
+        ArrayList<Transicao> listTrans = new ArrayList<>();
+        for (Transicao t : listaTransicao) {
+            if (t.getOrigem().equals(s)) {
+                listTrans.add(t);
+            }
+        }
+        return listTrans;
+    }
+
+//    public void removeEps() {
+//        Simbolo simbOri;
+//        ArrayList<Simbolo> listSimbEps = new ArrayList<>();
+//        int aux, cont, qtdEps,qtdEpsAt;
+//        for (Transicao t : listaTransicao) {
+//            if (t.getListaDestino() == null) {
+//                listSimbEps.add(t.getOrigem());
+//                listaTransicao.remove(t);
+//            }
+//        }
+//        qtdEps = listSimbEps.size();
+//        qtdEpsAt = 0;
+//        while (qtdEps != qtdEpsAt) {
+//            qtdEpsAt = qtdEps;
+//            for (Transicao t : listaTransicao) {
+//                cont = 0;
+//                aux = t.getListaDestino().size();
+//                for (Simbolo s : listSimbEps) {
+//                    if (t.getListaDestino().contains(s)) {
+//                        cont++;
+//                    }
+//                }
+//                if ((cont == aux)) {
+//                    listSimbEps.add(t.getOrigem());
+//                }
+//            }
+//            qtdEps = listSimbEps.size();
+//                    
+//        }
+//        
+//        for(Simbolo s : listSimbEps){
+//        
+//            System.out.println("Ini trans com eps: "+s.getNome());
+//        }
+//    }
+//
     public ArrayList<Transicao> removeUnitario(ArrayList<Transicao> t) {
         ArrayList<Transicao> nova = new ArrayList<>();
         for (Transicao outra : t) {
             if (outra.getListaDestino().size() == 1) {
                 nova.add(outra);
-            }    
+            }
         }
-        
+
         //verificar se todos os simbulos de 'nova' sao terminais
-        
+        ArrayList<Transicao> teste = new ArrayList<>();
+        //teste=t;
         for (Transicao t1 : t) {
             for (int i = 0; i < t1.getListaDestino().size(); i++) {
+                Transicao trans = new Transicao();
                 for (Transicao nova1 : nova) {
                     if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem().getNome())) {
-                        t1.getListaDestino().get(i).setNome(nova1.getListaDestino().get(0).getNome());
-                        while(!(t1.getListaDestino().get(i).isTerminal())){
-                            //funcao que retorna a cabeça com certo simbolo
-                            
-                        }
+                        System.out.print(t1.getOrigem().getNome());
+                        System.out.println(t1.getListaDestino().get(i).getNome());
+
+                        System.out.print(nova1.getOrigem().getNome());
+                        System.out.println(nova1.getListaDestino().get(0).getNome());
+
+                        trans.setOrigem(t1.getOrigem());
+                        trans.addListaDestino(nova1.getListaDestino().get(0));
+                        //teste.add(trans);
+                    } else {
+
+                        trans.setOrigem(t1.getOrigem());
+                        trans.setListaDestino(t1.getListaDestino());
 
                     }
+
+                    teste.add(trans);
                 }
+            }
+        }
+        for (Transicao t1 : teste) {
+            if (t1.getListaDestino().size() == 1 && (!(t1.getListaDestino().get(0).isTerminal()))) {
+                removeUnitario(teste);
             }
         }
         return t;
     }
 
+    public ArrayList<Transicao> removeInuteis(ArrayList<Transicao> t) {
+        ArrayList<Transicao> uteis = new ArrayList<>();
+        ArrayList<Transicao> retorno = new ArrayList<>();
+        ArrayList<Transicao> teste = new ArrayList<>();
+        for (Transicao transicao : t) {
+            if ((transicao.getListaDestino().size() == 1) && (transicao.getListaDestino().get(0).isTerminal())) {
+                uteis.add(transicao);
+                retorno.add(transicao);
+            }
+        }
+        for (Transicao transicao : t) {
+            for (Transicao util : uteis) {
+                for (int i = 0, cont = 0; i < transicao.getListaDestino().size(); i++) {//get(i).getNome().equals(util.getOrigem().getNome())) {
+                    if (transicao.getListaDestino().get(i).getNome().equals(util.getOrigem().getNome())) {
+                        cont++;
+                    }
+                   
+                    if (cont == transicao.getListaDestino().size()) {
+                        retorno.add(transicao);
+
+                    }
+
+                }
+                    teste.add(transicao);
+            }
+        }
+        ArrayList<Transicao> retornofinal = new ArrayList<>();
+//        retornofinal.addAll(retorno);
+
+        for (Transicao trans : retorno) {
+            for (Transicao util : uteis) {
+                if ((trans.equals(util))) {
+//                            retornofinal.remove(i);
+                    retornofinal.add(trans);
+
+                }
+            }
+        }
+        return retorno;
+    }
 }
