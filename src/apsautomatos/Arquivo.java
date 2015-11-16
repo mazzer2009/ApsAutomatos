@@ -10,19 +10,14 @@ public class Arquivo {
 
     public void lerArquivo(String arquivo, Linguagem lingua) {
         String auxiliar[];
-        ArrayList<Simbolo> listaDest = new ArrayList<>();
+        ArrayList<Simbolo> listaDest = null;
+        ArrayList<Simbolo> listaSimbs = new ArrayList<>();
         try {
-            FileReader file = new FileReader(arquivo + ".txt");
+            FileReader file = new FileReader("src/arquivos/" + arquivo + ".txt");
             BufferedReader fi = new BufferedReader(file);
             String linha = fi.readLine();
-         //   linha = fi.readLine();
-
+            linha = fi.readLine();
             auxiliar = linha.split(" ");
-
-            for (int i = 0; i < auxiliar.length; i++) {
-
-            }
-
             for (String a : auxiliar) {
                 lingua.criaSimbolo(a);
             }
@@ -35,7 +30,7 @@ public class Arquivo {
                 auxiliar = linha.split(" ");
                 transicao.setOrigem(lingua.getSimbolo(auxiliar[0]));
                 if (auxiliar[1].equals("epsilon")) {
-                   // transicao.setListaDestino(null);
+                    transicao.setListaDestino(listaSimbs);
                 } else {
 
                     auxiliar = auxiliar[1].split("");

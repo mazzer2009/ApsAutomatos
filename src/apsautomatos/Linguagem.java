@@ -6,7 +6,6 @@
 package apsautomatos;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Linguagem {
 
@@ -91,6 +90,35 @@ public class Linguagem {
             }
         }
         return listTrans;
+    }
+
+    public ArrayList<Simbolo> procuraNulls() {
+        ArrayList<Simbolo> listaNulls = new ArrayList<>();
+        ArrayList<Transicao> listaTrans = new ArrayList<>();
+        for (Transicao t : listaTransicao) {
+            if (t.getListaDestino().size() == 0) {
+                listaNulls.add(t.getOrigem());
+            }
+        }
+        return listaNulls;
+    }
+
+    public ArrayList<Transicao> procuraTransDestNull(ArrayList<Simbolo> listaNulls) {
+        ArrayList<Transicao > listaDestNulls = new ArrayList<>();
+        int cont;
+        for (Transicao t : listaTransicao) {
+            cont = 0;
+            for (Simbolo s : listaNulls) {
+                if (!((t.getListaDestino()).contains(s))) {
+                    cont--;
+                }
+            }
+            if(cont == 0){
+            listaDestNulls.add(t);
+            }
+        }
+        return listaDestNulls;
+
     }
 
 //    public void removeEps() {
@@ -189,14 +217,14 @@ public class Linguagem {
                     if (transicao.getListaDestino().get(i).getNome().equals(util.getOrigem().getNome())) {
                         cont++;
                     }
-                   
+
                     if (cont == transicao.getListaDestino().size()) {
                         retorno.add(transicao);
 
                     }
 
                 }
-                    teste.add(transicao);
+                teste.add(transicao);
             }
         }
         ArrayList<Transicao> retornofinal = new ArrayList<>();
