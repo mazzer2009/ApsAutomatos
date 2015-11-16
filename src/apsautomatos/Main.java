@@ -16,20 +16,18 @@ public class Main {
     public static void main(String[] args) {
         Arquivo arq = new Arquivo();
         Linguagem ling = new Linguagem();
-        arq.lerArquivo("teste", ling);
+        arq.lerArquivo("teste2", ling);
         ArrayList<Transicao> t = ling.getListaTransicao();
-        ArrayList<Transicao> ts = new ArrayList<>();
+        ArrayList<Simbolo> ts = new ArrayList<>();
         int i = 0;
-       ts= ling.removeInuteis(t);
-        for (Transicao nova : ts) {
+        ts = ling.removeInuteis(t);
+        for (Simbolo nova : ts) {
             System.out.println(" ");
-            for (i = 0; i < nova.getListaDestino().size(); i++) {
-                //System.out.println(nova.getListaDestino().size());
-                System.out.println(nova.getOrigem().getNome() + "----->" + nova.getListaDestino().get(i).getNome());
-            }
-                //s.add(nova.getListaDestino())
+            //System.out.println(nova.getListaDestino().size());
+            System.out.println(nova.getNome());
+            //s.add(nova.getListaDestino())
 
-       }
+        }
 
     }
 

@@ -6,7 +6,6 @@
 package apsautomatos;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Linguagem {
 
@@ -173,44 +172,29 @@ public class Linguagem {
         return t;
     }
 
-    public ArrayList<Transicao> removeInuteis(ArrayList<Transicao> t) {
-        ArrayList<Transicao> uteis = new ArrayList<>();
-        ArrayList<Transicao> retorno = new ArrayList<>();
-        ArrayList<Transicao> teste = new ArrayList<>();
+    public ArrayList<Simbolo> removeInuteis(ArrayList<Transicao> t) {
+        ArrayList<Simbolo> uteis = new ArrayList<Simbolo>();
+        ArrayList<Simbolo> retorno = new ArrayList<Simbolo>();
         for (Transicao transicao : t) {
             if ((transicao.getListaDestino().size() == 1) && (transicao.getListaDestino().get(0).isTerminal())) {
-                uteis.add(transicao);
-                retorno.add(transicao);
+                uteis.add(transicao.getOrigem());
             }
         }
-        for (Transicao transicao : t) {
-            for (Transicao util : uteis) {
-                for (int i = 0, cont = 0; i < transicao.getListaDestino().size(); i++) {//get(i).getNome().equals(util.getOrigem().getNome())) {
-                    if (transicao.getListaDestino().get(i).getNome().equals(util.getOrigem().getNome())) {
+        for (Transicao trans : t) {
+            for (Simbolo util : uteis) {
+                for (int i = 0, cont = 0; i < trans.getListaDestino().size(); i++) {//get(i).getNome().equals(util.getOrigem().getNome())) {
+                    if (trans.getListaDestino().get(i).getNome().equals(util.getNome())) {
                         cont++;
                     }
-                   
-                    if (cont == transicao.getListaDestino().size()) {
-                        retorno.add(transicao);
 
+                    if (cont == trans.getListaDestino().size()) {
+                        retorno.add(trans.getOrigem());
                     }
-
-                }
-                    teste.add(transicao);
-            }
-        }
-        ArrayList<Transicao> retornofinal = new ArrayList<>();
-//        retornofinal.addAll(retorno);
-
-        for (Transicao trans : retorno) {
-            for (Transicao util : uteis) {
-                if ((trans.equals(util))) {
-//                            retornofinal.remove(i);
-                    retornofinal.add(trans);
-
                 }
             }
         }
+        retorno.addAll(uteis);
+
         return retorno;
     }
 }
