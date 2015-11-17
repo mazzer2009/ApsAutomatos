@@ -34,4 +34,10 @@ public class Simbolo {
     public void setClosure(Closure closure) {
         this.closure = closure;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        Simbolo s = (Simbolo)obj;
+        return s.getNome().equals(this.getNome());
+    }
 }

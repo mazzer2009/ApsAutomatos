@@ -43,7 +43,7 @@ public class Transicao {
         }
         return list;
     }
-    
+       
     public void addListaDestino(Simbolo s){
         this.listaDestino.add(s);
     }

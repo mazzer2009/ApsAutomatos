@@ -16,19 +16,46 @@ public class Main {
     public static void main(String[] args) {
         Arquivo arq = new Arquivo();
         Linguagem ling = new Linguagem();
-        arq.lerArquivo("teste2", ling);
+        arq.lerArquivo("removeInal", ling);
+
+      //  arq.lerArquivo("teste", ling);
         ArrayList<Transicao> t = ling.getListaTransicao();
         ArrayList<Simbolo> ts = new ArrayList<>();
+        ArrayList<Transicao> tt = new ArrayList<>();
         int i = 0;
         ts = ling.removeInuteis(t);
         for (Simbolo nova : ts) {
-            System.out.println(" ");
-            //System.out.println(nova.getListaDestino().size());
             System.out.println(nova.getNome());
-            //s.add(nova.getListaDestino())
-
         }
-
+//          tt = ling.removeInalcancaveis(t);
+//          int j=0;
+//          for(Transicao trans:tt){
+//              System.out.println(" ");
+//              for(j=0;j<trans.getListaDestino().size();j++){
+//              System.out.println(trans.getOrigem().getNome()+ " para "+ trans.getListaDestino().get(j).getNome());
+//                  
+//              }
+//        
+        
+//        for (Transicao tt : ling.getListaTransicao()) {
+//            System.out.print("\nOri: " + tt.getOrigem().getNome() + "----->");
+//            for (Simbolo ss : tt.getListaDestino()) {
+//
+//                System.out.print("" + ss.getNome());
+//
+//            }
+//        System.out.println("\n--------------------");
+//        ArrayList<Simbolo> ll = ling.procuraNulls();
+//        for (Simbolo s : ll) {
+//            System.out.println("S: " + s.getNome());
+//        }
+//        System.out.println("---1---");
+//        ArrayList<Transicao> tt = ling.procuraTransDestNull(ll);
+//        for (Transicao tss : tt) {
+//            System.out.println("" + tss.getOrigem().getNome());
+//        }
+//        System.out.println("--------------------");
+//    }
     }
-
 }
+
