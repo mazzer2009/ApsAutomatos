@@ -36,6 +36,20 @@ public class Transicao {
         this.listaDestino = listaDestino;
     }
 
+    //AQUI MARCAO USADO NA REMOVE UNITARIO
+    @Override
+    public Object clone() {
+        Transicao t = new Transicao();
+        t.setOrigem((Simbolo)getOrigem().clone());
+        ArrayList<Simbolo> origem = new ArrayList<>();
+        for(Simbolo simb:getListaDestino()){
+            origem.add((Simbolo) simb.clone());
+        }
+        t.setListaDestino(origem);
+        return t;
+        
+    }
+
     public ArrayList<Simbolo> getCopiaDest(Transicao t1) {
         ArrayList<Simbolo> list = new ArrayList<>();
         for (Simbolo s : t1.getListaDestino()) {
@@ -43,7 +57,7 @@ public class Transicao {
         }
         return list;
     }
-    
+       
     public void addListaDestino(Simbolo s){
         this.listaDestino.add(s);
     }

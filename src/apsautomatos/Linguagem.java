@@ -104,7 +104,7 @@ public class Linguagem {
     }
 
     public ArrayList<Transicao> procuraTransDestNull(ArrayList<Simbolo> listaNulls) {
-        ArrayList<Transicao > listaDestNulls = new ArrayList<>();
+        ArrayList<Transicao> listaDestNulls = new ArrayList<>();
         int cont;
         for (Transicao t : listaTransicao) {
             cont = 0;
@@ -113,8 +113,8 @@ public class Linguagem {
                     cont--;
                 }
             }
-            if(cont == 0){
-            listaDestNulls.add(t);
+            if (cont == 0) {
+                listaDestNulls.add(t);
             }
         }
         return listaDestNulls;
@@ -157,88 +157,101 @@ public class Linguagem {
 //        }
 //    }
 //
-    public ArrayList<Transicao> removeUnitario(ArrayList<Transicao> t) {
-        ArrayList<Transicao> nova = new ArrayList<>();
-        for (Transicao outra : t) {
-            if (outra.getListaDestino().size() == 1) {
-                nova.add(outra);
-            }
-        }
+  
+    //REMOVE UNITARIO: AQUI MARCAO
+    public void removeUnitario() {
+        ArrayList<Transicao> transicao = new ArrayList<>();
+        Transicao copia = new Transicao();
+        int tamanho;
+        do {
+            ArrayList<Transicao> nova = new ArrayList<>();
+            for (Transicao outra : this.listaTransicao) {
+         //       for (int i = 0; i < outra.getListaDestino().size(); i++) {
+                    if ((outra.getListaDestino().size() == 1) && (!(outra.getListaDestino().get(0).isTerminal()))) {
+                        nova.add(outra);
+                        System.out.println("PRINTF");
 
-        //verificar se todos os simbulos de 'nova' sao terminais
-        ArrayList<Transicao> teste = new ArrayList<>();
-        //teste=t;
-        for (Transicao t1 : t) {
-            for (int i = 0; i < t1.getListaDestino().size(); i++) {
-                Transicao trans = new Transicao();
-                for (Transicao nova1 : nova) {
-                    if (t1.getListaDestino().get(i).getNome().equals(nova1.getOrigem().getNome())) {
-                        System.out.print(t1.getOrigem().getNome());
-                        System.out.println(t1.getListaDestino().get(i).getNome());
+           //         }
 
-                        System.out.print(nova1.getOrigem().getNome());
-                        System.out.println(nova1.getListaDestino().get(0).getNome());
-
-                        trans.setOrigem(t1.getOrigem());
-                        trans.addListaDestino(nova1.getListaDestino().get(0));
-                        //teste.add(trans);
-                    } else {
-
-                        trans.setOrigem(t1.getOrigem());
-                        trans.setListaDestino(t1.getListaDestino());
-
-                    }
-
-                    teste.add(trans);
                 }
             }
-        }
-        for (Transicao t1 : teste) {
-            if (t1.getListaDestino().size() == 1 && (!(t1.getListaDestino().get(0).isTerminal()))) {
-                removeUnitario(teste);
-            }
-        }
-        return t;
-    }
+            tamanho = nova.size();
 
-    public ArrayList<Transicao> removeInuteis(ArrayList<Transicao> t) {
-        ArrayList<Transicao> uteis = new ArrayList<>();
-        ArrayList<Transicao> retorno = new ArrayList<>();
-        ArrayList<Transicao> teste = new ArrayList<>();
+            for (Transicao trans : nova) {
+                transicao = getTransicoes(trans.getListaDestino().get(0));
+                for (Transicao tra : transicao) {
+                    copia = (Transicao) tra.clone();
+                    copia.setOrigem((Simbolo) trans.getOrigem().clone());
+                    if ((!copia.getOrigem().equals(copia.getListaDestino().get(0))) && (!this.listaTransicao.contains(copia))) {
+                        this.listaTransicao.add(copia);
+
+                    }
+                }
+                this.listaTransicao.remove(trans);
+
+            }
+//            System.out.println("Tamanho "+tamanho);
+        } while (tamanho > 0);
+        
+
+}
+
+public ArrayList<Simbolo> removeInuteis(ArrayList<Transicao> t) {
+        ArrayList<Simbolo> uteis = new ArrayList<>();
+        ArrayList<Simbolo> retorno = new ArrayList<>();
         for (Transicao transicao : t) {
             if ((transicao.getListaDestino().size() == 1) && (transicao.getListaDestino().get(0).isTerminal())) {
-                uteis.add(transicao);
-                retorno.add(transicao);
+                uteis.add(transicao.getOrigem());
             }
         }
-        for (Transicao transicao : t) {
-            for (Transicao util : uteis) {
-                for (int i = 0, cont = 0; i < transicao.getListaDestino().size(); i++) {//get(i).getNome().equals(util.getOrigem().getNome())) {
-                    if (transicao.getListaDestino().get(i).getNome().equals(util.getOrigem().getNome())) {
-                        cont++;
-                    }
-
-                    if (cont == transicao.getListaDestino().size()) {
-                        retorno.add(transicao);
-
-                    }
-
+        for (Transicao trans : t) {
+            for (int i = 0, cont = 0; i < trans.getListaDestino().size(); i++) {//get(i).getNome().equals(util.getOrigem().getNome())) {
+                //  for (Simbolo util : uteis) {
+                if (uteis.containsAll(trans.getListaDestino())) {
+                    cont++;
                 }
-                teste.add(transicao);
-            }
-        }
-        ArrayList<Transicao> retornofinal = new ArrayList<>();
-//        retornofinal.addAll(retorno);
-
-        for (Transicao trans : retorno) {
-            for (Transicao util : uteis) {
-                if ((trans.equals(util))) {
-//                            retornofinal.remove(i);
-                    retornofinal.add(trans);
-
+                if (cont == trans.getListaDestino().size()) {
+                    retorno.add(trans.getOrigem());
                 }
+
+                //}
             }
         }
+        retorno.addAll(uteis);
+
         return retorno;
     }
+
+    public ArrayList<Transicao> removeInalcancaveis(ArrayList<Transicao> t) {
+        Simbolo inicial = this.getInicial();
+        ArrayList<Transicao> nova = new ArrayList<>();
+        ArrayList<Transicao> aux = new ArrayList<>();
+        for (Transicao trans : t) {
+            if (trans.getOrigem().equals(inicial)) {
+                nova.add(trans);
+            }
+        }
+
+        for (int i = 0; i < nova.size(); i++) {
+            Transicao s = nova.get(i);
+            for (int j = 0; j < s.getListaDestino().size(); j++) {
+                aux = getTransicoes(s.getListaDestino().get(j));
+                nova.addAll(aux);
+            }
+        }
+
+        return nova;
+    }
+    
+    //AQI MARCAO (REMOVE UNITARIOS
+    public ArrayList<Transicao> getTransicoes(Simbolo s) {
+        ArrayList<Transicao> trans = new ArrayList<>();
+        for (Transicao transicao : this.listaTransicao) {
+            if (transicao.getOrigem().equals(s)) {
+                trans.add(transicao);
+            }
+        }
+        return trans;
+    }
+
 }
