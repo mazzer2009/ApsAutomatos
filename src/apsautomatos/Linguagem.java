@@ -6,6 +6,8 @@
 package apsautomatos;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Linguagem {
 
@@ -90,8 +92,8 @@ public class Linguagem {
             }
         }
         return listTrans;
-    }  
-    //Marco
+    }
+
     public ArrayList<Simbolo> procuraNulls() {
         ArrayList<Simbolo> listaNulls = new ArrayList<>();
         Transicao transicao;
@@ -257,14 +259,14 @@ public class Linguagem {
                                     cont++;
                                 }
                             }
-                        if (cont == k) {
-                            listaTransicao.remove(j);
-                            if (j < i) {
-                                i--;
-                            }
-                            j--;
+                            if (cont == k) {
+                                listaTransicao.remove(j);
+                                if (j < i) {
+                                    i--;
+                                }
+                                j--;
 
-                        }
+                            }
                         }
                     }
                 }
@@ -314,7 +316,8 @@ public class Linguagem {
         while (!(listaSimbN.isEmpty())) {
             listaSimbN = criaNovasTrans(listaSimbolos);
         }
-        limpaRep();    }
+        limpaRep();
+    }
 
     public void imprimeTrans() {
         System.out.println("--------- Lista Trans -------------");
@@ -363,8 +366,8 @@ public class Linguagem {
         for (Transicao t : listaTransicao) {
             cont = t.getListaDestino().size();
             aux = true;
-            for(Simbolo s : t.getListaDestino()){
-                if(!(uteis.contains(s) || s.isTerminal())){
+            for (Simbolo s : t.getListaDestino()) {
+                if (!(uteis.contains(s) || s.isTerminal())) {
                     aux = false;
                 }
             }
@@ -380,25 +383,19 @@ public class Linguagem {
         limpaRep();
     }
 
-    
-    //Marco Fim
-    
-    
-    //REMOVE UNITARIO: AQUI MARCAO
-   public void removeUnitario() {
+    public void removeUnitario() {
         ArrayList<Transicao> transicao = new ArrayList<>();
         Transicao copia = new Transicao();
         int tamanho;
         do {
             ArrayList<Transicao> nova = new ArrayList<>();
             for (Transicao outra : this.listaTransicao) {
-         //       for (int i = 0; i < outra.getListaDestino().size(); i++) {
-                    if ((outra.getListaDestino().size() == 1) && (!(outra.getListaDestino().get(0).isTerminal()))) {
-                        nova.add(outra);
-                        System.out.println("PRINTF");
+                //       for (int i = 0; i < outra.getListaDestino().size(); i++) {
+                if ((outra.getListaDestino().size() == 1) && (!(outra.getListaDestino().get(0).isTerminal()))) {
+                    nova.add(outra);
+                    System.out.println("PRINTF");
 
-           //         }
-
+                    //         }
                 }
             }
             tamanho = nova.size();
@@ -418,9 +415,9 @@ public class Linguagem {
             }
 //            System.out.println("Tamanho "+tamanho);
         } while (tamanho > 0);
-        
 
-}
+    }
+    
     public ArrayList<Transicao> removeInalcancaveis(ArrayList<Transicao> t) {
         Simbolo inicial = this.getInicial();
         ArrayList<Transicao> nova = new ArrayList<>();
@@ -441,8 +438,7 @@ public class Linguagem {
 
         return nova;
     }
-    
-    //AQI MARCAO (REMOVE UNITARIOS
+
     public ArrayList<Transicao> getTransicoes(Simbolo s) {
         ArrayList<Transicao> trans = new ArrayList<>();
         for (Transicao transicao : this.listaTransicao) {
