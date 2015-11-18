@@ -26,7 +26,7 @@ public class Main {
             } else {
                 arq.lerArquivo(s, ling);
             }
-            s = JOptionPane.showInputDialog(null, "Opção 1 - Eliminar Produções Para a Palavra Vazia \nOpção 2 - Eliminar Produções Unitárias\nOpção 3 - Eliminar as Variáveis Que Não Derivam Palavras"
+            s = JOptionPane.showInputDialog(null, "Opção 0 - Cancelar\nOpção 1 - Eliminar Produções Para a Palavra Vazia \nOpção 2 - Eliminar Produções Unitárias\nOpção 3 - Eliminar as Variáveis Que Não Derivam Palavras"
                     + "\nOpção 4 - Elimine variáveis inalcançáveis a partir da variável inicial\nOpção 5 - Executa todos passos anteriores sequenciamente", null);
             if (s.equals("1")) {
                 ling.removeNulls();
