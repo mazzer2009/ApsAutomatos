@@ -16,9 +16,9 @@ public class Main {
     public static void main(String[] args) {
         Arquivo arq = new Arquivo();
         Linguagem ling = new Linguagem();
-        arq.lerArquivo("unitario", ling);
+        arq.lerArquivo("teste", ling);
 
-        ling.removeUnitario();
+        ling.removeInuteis();
 
     }
 }
