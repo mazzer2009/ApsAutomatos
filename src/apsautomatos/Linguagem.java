@@ -157,17 +157,46 @@ public class Linguagem {
 //        }
 //    }
 //
-    public ArrayList<Transicao> removeUnitario(ArrayList<Transicao> t) {
-        ArrayList<Transicao> nova = new ArrayList<>();
-        for (Transicao outra : t) {
-            if (outra.getListaDestino().size() == 1) {
-                nova.add(outra);
-            }
-        }
-        return nova;
-    }
+  
+    //REMOVE UNITARIO: AQUI MARCAO
+    public void removeUnitario() {
+        ArrayList<Transicao> transicao = new ArrayList<>();
+        Transicao copia = new Transicao();
+        int tamanho;
+        do {
+            ArrayList<Transicao> nova = new ArrayList<>();
+            for (Transicao outra : this.listaTransicao) {
+         //       for (int i = 0; i < outra.getListaDestino().size(); i++) {
+                    if ((outra.getListaDestino().size() == 1) && (!(outra.getListaDestino().get(0).isTerminal()))) {
+                        nova.add(outra);
+                        System.out.println("PRINTF");
 
-    public ArrayList<Simbolo> removeInuteis(ArrayList<Transicao> t) {
+           //         }
+
+                }
+            }
+            tamanho = nova.size();
+
+            for (Transicao trans : nova) {
+                transicao = getTransicoes(trans.getListaDestino().get(0));
+                for (Transicao tra : transicao) {
+                    copia = (Transicao) tra.clone();
+                    copia.setOrigem((Simbolo) trans.getOrigem().clone());
+                    if ((!copia.getOrigem().equals(copia.getListaDestino().get(0))) && (!this.listaTransicao.contains(copia))) {
+                        this.listaTransicao.add(copia);
+
+                    }
+                }
+                this.listaTransicao.remove(trans);
+
+            }
+//            System.out.println("Tamanho "+tamanho);
+        } while (tamanho > 0);
+        
+
+}
+
+public ArrayList<Simbolo> removeInuteis(ArrayList<Transicao> t) {
         ArrayList<Simbolo> uteis = new ArrayList<>();
         ArrayList<Simbolo> retorno = new ArrayList<>();
         for (Transicao transicao : t) {
@@ -213,7 +242,8 @@ public class Linguagem {
 
         return nova;
     }
-
+    
+    //AQI MARCAO (REMOVE UNITARIOS
     public ArrayList<Transicao> getTransicoes(Simbolo s) {
         ArrayList<Transicao> trans = new ArrayList<>();
         for (Transicao transicao : this.listaTransicao) {
@@ -223,6 +253,5 @@ public class Linguagem {
         }
         return trans;
     }
-    
-  
+
 }

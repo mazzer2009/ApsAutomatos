@@ -34,10 +34,18 @@ public class Simbolo {
     public void setClosure(Closure closure) {
         this.closure = closure;
     }
-    
+    //AQUI MARCAO (REMOVE UNITARIOS)
     @Override
     public boolean equals(Object obj){
         Simbolo s = (Simbolo)obj;
         return s.getNome().equals(this.getNome());
+    }
+    //AQUI MARCAO (REMOVE UNITARIOS)
+    @Override
+    public Object clone(){
+        Simbolo simb = new Simbolo();
+        simb.setNome(nome);
+        simb.setTerminal(terminal);
+        return simb;
     }
 }

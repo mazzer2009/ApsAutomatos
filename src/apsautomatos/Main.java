@@ -16,25 +16,25 @@ public class Main {
     public static void main(String[] args) {
         Arquivo arq = new Arquivo();
         Linguagem ling = new Linguagem();
-        arq.lerArquivo("removeInal", ling);
+        arq.lerArquivo("unitario", ling);
 
       //  arq.lerArquivo("teste", ling);
         ArrayList<Transicao> t = ling.getListaTransicao();
         ArrayList<Simbolo> ts = new ArrayList<>();
         ArrayList<Transicao> tt = new ArrayList<>();
         int i = 0;
-        ts = ling.removeInuteis(t);
-        for (Simbolo nova : ts) {
-            System.out.println(nova.getNome());
-        }
-//          tt = ling.removeInalcancaveis(t);
-//          int j=0;
-//          for(Transicao trans:tt){
-//              System.out.println(" ");
-//              for(j=0;j<trans.getListaDestino().size();j++){
-//              System.out.println(trans.getOrigem().getNome()+ " para "+ trans.getListaDestino().get(j).getNome());
+//        ts = ling.removeInuteis(t);
+//        for (Simbolo nova : ts) {
+//            System.out.println(nova.getNome());
+//        }
+          ling.removeUnitario();
+          int j=0;
+          for(Transicao trans:t){
+              System.out.println(" ");
+              for(j=0;j<trans.getListaDestino().size();j++){
+              System.out.println(trans.getOrigem().getNome()+ " para "+ trans.getListaDestino().get(j).getNome());
 //                  
-//              }
+              }
 //        
         
 //        for (Transicao tt : ling.getListaTransicao()) {
@@ -59,3 +59,4 @@ public class Main {
     }
 }
 
+}
